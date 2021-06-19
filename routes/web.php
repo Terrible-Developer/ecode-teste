@@ -47,7 +47,12 @@ Route::get('/editarpessoa/{id}', function($id){
     return view('editarpessoa', ['pessoa' => $pessoa]);
 });
 
+function getPessoa($pessoaid){
+    $pessoa = Pessoa::find($pessoaid);
+    return $pessoa;
+}
+
 function pegarTelefonePessoa($pessoaid){
-    $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->all();
+    $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->firstOrFail();
         //echo $telefones;
 }
