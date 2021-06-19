@@ -21,10 +21,10 @@
                 <th><input type="text" value="{{ $pessoa->cpf }}"></input></th>
                 <th><input type="text" value="{{ $pessoa->rg }}"></input></th>
                 <th>
-                    <select value ="{{ $pessoa->genero  }}">
-                        <option value="0">Masculino</option>
-                        <option value="1">Feminino</option>
-                        <option value="2">Não definido</option>
+                    <select >
+                        <option value="0" <?php if($pessoa->genero == 0) echo "selected"; ?> >Masculino</option>
+                        <option value="1" <?php if($pessoa->genero == 1) echo "selected"; ?> >Feminino</option>
+                        <option value="2" <?php if($pessoa->genero == 2) echo "selected"; ?> >Não definido</option>
                     </select>
                 </th>
                 <th><input type="date" value="{{ $pessoa->data_nascimento }}"></input></th>
@@ -32,7 +32,6 @@
                 <th>{{ date('d-m-Y', strtotime($pessoa->updated_at)) }}</th>
             </tr>
             <a href="/pessoas">Cancelar</a>
-            <!-- Talvez trocar "cancelar" pra "retornar" e deixar como o único jeito de sair da página, foda-se -->>
-            <button onclick="{{salvarEdicao($pessoa->id)}}">Salvar</button>
+            <button onclick="{{salvarEdicao($pessoa)}}">Salvar</button>
     </body>
 </html>

@@ -39,8 +39,10 @@ Route::get('/editarpessoa/{id}', function($id){
     return view('editarpessoa', ['pessoa' => $pessoa]);
 });
 
-function salvarEdicao($pessoaid){
-    echo 'console.log(' . $pessoaid . ')';
+function salvarEdicao($pessoa){
+    echo 'console.log(' . $pessoa->genero . ')';
+    //Pessoa::whereId($pessoa->id)->update(['nome' => $pessoa->nome, 'genero' => $pessoa->genero]);
+    //return back();
     /*
      * Pessoa::update();
      */
@@ -49,11 +51,6 @@ function salvarEdicao($pessoaid){
 function getPessoa($pessoaid){
     $pessoa = Pessoa::find($pessoaid);
     return $pessoa;
-}
-
-function editarPessoa($pessoaid){
-    //echo 'console.log(' . $pessoaid . ')';
-    return redirect(" /editarpessoa" . $pessoaid);
 }
 
 function pegarTelefonePessoa($pessoaid){
