@@ -28,7 +28,8 @@ class PessoaController extends Controller
     public function store(Request $request)
     {
         //
-        return Pessoa::create($request->all());
+        Pessoa::create($request->all());
+        return redirect('/cadastrosucesso');
     }
 
     /**
@@ -55,7 +56,8 @@ class PessoaController extends Controller
         //
         $pessoa = Pessoa::find($id);
         $pessoa->update($request->all());
-        return $pessoa;
+        //return $pessoa;
+        return redirect('/pessoas');
     }
 
     /**
@@ -67,6 +69,7 @@ class PessoaController extends Controller
     public function destroy($id)
     {
         //
-        return Pessoa::destroy($id);
+        Pessoa::destroy($id);
+        return redirect('/pessoas');
     }
 }

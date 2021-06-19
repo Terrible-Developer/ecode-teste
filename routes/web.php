@@ -18,7 +18,7 @@ use App\Models\Telefones;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/pessoas', function(){
@@ -26,11 +26,19 @@ Route::get('/pessoas', function(){
 
     $ctArr = Pessoa::get()->toJson(JSON_PRETTY_PRINT);
 
-    $myArr = json_decode(Pessoa::get()->toJson(JSON_PRETTY_PRINT));
+    $myArr = json_decode(Pessoa::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
 
-    pegarTelefonePessoa(1);
+    //pegarTelefonePessoa(1);
 
     return view('pessoas', ['pessoas' => $myArr, 'pessoasCt' => $ctArr]);
+});
+
+Route::get('/criarpessoa', function(){
+    return view('criarpessoa');
+});
+
+Route::get('/cadastrosucesso', function(){
+    return view('cadastrosucesso');
 });
 
 Route::get('/editarpessoa/{id}', function($id){
@@ -39,21 +47,7 @@ Route::get('/editarpessoa/{id}', function($id){
     return view('editarpessoa', ['pessoa' => $pessoa]);
 });
 
-function salvarEdicao($pessoa){
-    echo 'console.log(' . $pessoa->genero . ')';
-    //Pessoa::whereId($pessoa->id)->update(['nome' => $pessoa->nome, 'genero' => $pessoa->genero]);
-    //return back();
-    /*
-     * Pessoa::update();
-     */
-}
-
-function getPessoa($pessoaid){
-    $pessoa = Pessoa::find($pessoaid);
-    return $pessoa;
-}
-
 function pegarTelefonePessoa($pessoaid){
-    $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->firstOrFail();
+    $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->all();
         //echo $telefones;
 }

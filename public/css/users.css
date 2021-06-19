@@ -4,6 +4,7 @@ body {
 
 #listaUsuarios {
   width: 100%;
+  margin-left: 5%;
 }
 #listaUsuarios tr, #listaUsuarios th {
   border: 1px solid black;
@@ -17,6 +18,24 @@ body {
   border: 1px solid black;
   background-color: #bdbdbd;
   color: black;
+}
+#listaUsuarios a:nth-child(even) {
+  background-color: red;
+  color: white;
+}
+#listaUsuarios input {
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+}
+#listaUsuarios .botaoAcao {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 150px;
+}
+#listaUsuarios .botaoAcao a, #listaUsuarios .botaoAcao input {
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=users.css.map */

@@ -21,6 +21,8 @@ Route::apiResource('pessoajuridicas', 'App\Http\Controllers\PessoaJuridicasContr
 Route::apiResource('endereco', 'App\Http\Controllers\EnderecoController');
 Route::apiResource('telefone', 'App\Http\Controllers\TelefoneController');
 
+Route::post('/myTest', 'App\Http\Controllers\Controller@index');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

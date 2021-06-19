@@ -1,0 +1,17 @@
+body {
+  text-align: center;
+}
+
+.opcoesContainer {
+  display: flex;
+  flex-direction: row;
+  margin-left: 42%;
+}
+.opcoesContainer div {
+  padding: 1px;
+  margin: 2px;
+  border: 1px solid black;
+  background-color: #cfcfcf;
+}
+
+/*# sourceMappingURL=home.css.map */
