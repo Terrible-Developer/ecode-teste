@@ -1,0 +1,15 @@
+body {
+  text-align: center;
+}
+
+#listaUsuarios {
+  width: 100%;
+}
+#listaUsuarios tr, #listaUsuarios th {
+  border: 1px solid black;
+}
+#listaUsuarios th:nth-child(even) {
+  background-color: gray;
+}
+
+/*# sourceMappingURL=users.css.map */

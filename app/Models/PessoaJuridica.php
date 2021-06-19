@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class PessoaJuridica extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+
+    protected $fillable = [
+        'razao_social',
+        'nome_fantasia',
+        'cnpj',
+        'inscricao_estadual',
+        'fundada_em'
+    ];
 }
