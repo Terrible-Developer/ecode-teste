@@ -32,6 +32,7 @@
                 <th>{{ date('d-m-Y', strtotime($pessoa->updated_at)) }}</th>
             </tr>
             <a href="/pessoas">Cancelar</a>
+            <!-- Talvez trocar "cancelar" pra "retornar" e deixar como o único jeito de sair da página, foda-se -->>
             <button onclick="{{salvarEdicao($pessoa->id)}}">Salvar</button>
     </body>
 </html>
