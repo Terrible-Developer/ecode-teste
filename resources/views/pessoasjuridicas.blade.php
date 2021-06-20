@@ -13,6 +13,7 @@
                 <th>Nome Fantasia</th>
                 <th>CNPJ</th>
                 <th>Inscrição Estadual</th>
+                <th>Telefones</th>
                 <th>Data de fundação</th>
                 <th>Data de cadastro</th>
                 <th>Última atualização</th>
@@ -24,6 +25,12 @@
                 <th>{{ $empresa->nome_fantasia }}</th>
                 <th>{{ $empresa->cnpj }}</th>
                 <th>{{ $empresa->inscricao_estadual }}</th>
+                <th><?php
+                    $telefones = getTelefoneEmpresa($empresa->id);
+                    for($i = 0; $i < count($telefones); $i++){
+                        echo ' | ' . $telefones[$i]->numero_telefone . ' ';
+                    } ?>
+                </th>
                 <th> {{ $empresa->fundada_em }}</th>
                 <th>{{ date('d-m-Y', strtotime($empresa->created_at)) }}</th>
                 <th>{{ date('d-m-Y', strtotime($empresa->updated_at)) }}</th>

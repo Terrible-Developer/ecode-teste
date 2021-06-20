@@ -30,8 +30,8 @@
                     $telefones = getTelefonePessoa($pessoa->id);
                     for($i = 0; $i < count($telefones); $i++){
                         echo ' | ' . $telefones[$i]->numero_telefone . ' ';
-                    }
-                    ?></th>
+                    } ?>
+                </th>
                 <th>{{ date('d-m-Y', strtotime($pessoa->created_at)) }}</th>
                 <th>{{ date('d-m-Y', strtotime($pessoa->updated_at)) }}</th>
                 <th class="botaoAcao"><a href="/editarpessoa/{{$pessoa->id}}">Editar</a>

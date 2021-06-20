@@ -98,3 +98,8 @@ function getTelefonePessoa($pessoaid){
     $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->get();
     return $telefones;
 }
+
+function getTelefoneEmpresa($empresaid){
+    $telefones = Telefones::where('id_pessoa_juridica', '=', $empresaid)->get();
+    return $telefones;
+}
