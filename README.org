@@ -6,18 +6,127 @@
 Este projeto foi feito como um teste para a ecode agência digital. Consiste de um cadastro de pessoas (físicas e jurídicas), a edição de seus dados (e adição e edição individual de telefones e endereços especificamente), e deleção.
 
 ** Falhas
+Pela minha inexperiência com PHP e Laravel, não consegui resolver alguns detalhes até irritantes neste tempo curto.
 Já tirando a parte difícil do caminho, seguem os objetivos ou funcionalidades que não foram concluídos:
 *** Validação de campos
 Todos os campos de entrada não possuem nenhuma validação. Seja calcular o CPF, checar se o rg já está cadastrado, e qualquer outra validação mundana e padrão.
 *** Cadastro de telefone e endereço
 Estes cadastros funcionam, não é este o problema. O problema é que eles não cadastram junto à pessoa, mas separadamente.
 *** Pesquisa/Relatório
-Este foi uma falha feia, mas pelas explicações que vão seguir, não foi possível.
+Este foi uma falha feia. Tenho código comentado no arquivo de listar pessoas onde estava tentando formar um filtro, e depois percebi que não era exatamente o objetivo.
 *** Autenticação
 O pior de todos. Perdi tanto tempo com os outros que não consegui que mal sobrou tempo pra tentar fazer a autenticação.
+Até tentei começar instalando jwt-auth e procurando documentação e tutoriais, mas simplesmente não dei conta
 
 
-Pela minha inexperiência com PHP e Laravel, não consegui resolver alguns detalhes até irritantes neste tempo curto.
 
 ** Como configurar
-*barulho de tiro*
+Este guia de configuração assume que PHP, PHP composer, artisan, e postgresql estejam instalados e funcionando. Também assume que, no caso do postgresql, esteja usando as configurações padrões (porta 5432, localhost, role postgres).
+O projeto laravel será executado com artisan ao invés de hosteado em um webserver, pois é desnecessário para o caso de uso.
+Por último, este projeto foi feito em um sistema linux, e a maioria das interações com o postgres foram através do psql, a interface de terminal, logo os exemplos seguirão este padrão.
+
+*** Básico
+Clone este repositório:
+#+BEGIN_SRC sh
+git clone https://github.com/Terrible-Developer/ecode-teste.git
+#+END_SRC
+Execute o projeto com artisan para testar que tudo está funcionando:
+#+BEGIN_SRC sh
+php artisan serve
+#+END_SRC
+Caso tudo esteja certo, deve aparecer uma mensagem como a seguinte
+#+BEGIN_SRC sh
+Starting Laravel development server: http://127.0.0.1:8000
+#+END_SRC
+Podemos seguir para o próximo passo.
+
+
+*** Postgres
+Clone este repositório:
+Crie um banco chamado ecodeDB;
+Pegue o script sql neste repositório, ecodedb.sql;
+Em seguida, usando um terminal (as ferramentas gráficas devem possuir uma funcionalidade igual, provavelmente será "restore" nas opções de db), execute o seguinte comando:
+#+BEGIN_SRC dot
+pg_restore --host "localhost" --port "5432" --username "postgres" --password --dbname "ecodeDB" --verbose "/caminho/para/o/arquivo/ecodedb.sql"
+#+END_SRC
+Vamos quebrar o comando por partes:
+**** pg_restore
+É o programa de restauração integrado do postgres(o seu inverso, de backups, é o pg_dump);
+**** host
+É o host do servidor (neste caso, localhost, a instância local do banco);
+**** port
+É, claramente, a porta em que ele está rodando, e a porta 5432 é a padrão do postgres;
+**** username
+É o login/role que será usado para executar a ação;
+**** password
+Força o uso de senha (é a ação padrão, mas percebi que algumas vezes o programa simplesmente dava erro ao invés de me pedir a senha, então forçar é mais garantido);
+**** dbname
+O nome do banco para onde iremos restaurar o script;
+**** verbose
+Mostra mais informações no terminal
+**** "caminho"
+É o caminho para o arquivo .sql que contém o script. De preferência, use um caminho absoluto, caminhos relativos não parecem funcionar.
+
+
+Em caso de sucesso, ele mostrará a saída e terminará a execução.
+Depois, para confirmar que funcionou, iremos listar os bancos existentes com o seguinte comando:
+#+BEGIN_SRC sh
+psql -c '\l' --username "postgres"
+#+END_SRC
+Este comando lista todos os bancos. De novo, passamos a flag --username para não ter problemas de permissão.
+A saída deve parecer com o seguinte:
+#+BEGIN_SRC dot
+                                  List of databases
+   Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
+-----------+----------+----------+-------------+-------------+-----------------------
+ ecodeDB   | admin    | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+
+#+END_SRC
+Alguns detalhes serão diferentes, claro, como talvez o dono do banco ou alguma opção de charset, mas o importante é o comando estar funcionando.
+
+
+
+
+*** Finalizando o setup
+Terminados esses passos, acho (e dou ênfase no acho, pois não tive como testar em outra máquina para garantir que tudo estava funcionando do jeito esperado, ou se falta alguma instrução) que o projeto está pronto pra rodar.
+
+** Funcionalidades
+O sistema é um cadastro simples de pessoas físicas, jurídicas, e seus endereços e telefones (apesar que separadamente, como explicado na seção de falhas).
+Uma pessoa poderia se cadastrar, e um administrador pode visualizar e editar todos os cadastros.
+A interface está bem simples, mas funcional:
+*** Para usuários
+Seria relevante se eu tivesse conseguido implementar a autenticação, seriam rotas onde usuários comuns poderiam fazer requisições.
+*Nota: todas as rotas de cadastro seguem o mesmo padrão: um formulário para se preencher as informações e um botão de salvar para fazez a requisição post, levando ao conteúdo ser salvo no banco.
+
+*** Para admins
+Assim como a seção anterior, seria relevante se houvesse autenticação.
+*Nota: As rotas aqui seguem o mesmo padrão das outras: todas extremamente padronizadas e seguindo a mesma lógica.
+A página inicial é a lista de todos os cadastros daquele tipo.
+À direita de cada item, existem os botões editar e deletar.
+O botão editar redireciona o usuário para a rota de edição com aquele item específico, basicamente um formulário no estilo do cadastro, e no botão de salvar, faz a requisição (ou melhor, redireção) para a rota PUT (aparentemente é uma rota post, mas com um parâmetro blade para definir put, pois os forms html só suportam GET e POST) e atualiza o item no banco.
+O botão deletar é auto-explicativo, deleta aquele item. O botão é na verdade um form com apenas um input submit dentro, pois não sabia muito o que fazer com blade. Ele redireciona para a rota destroy e volta à lista. **Cuidado, como dito antes, não há nenhuma verificação ou pop-up: ao clicar, o item é deletado instantâneamente**
+
+
+** Observações e notas finais
+*** Usuário postgres
+Em algumas das instâncias onde usamos psql, precisamos passar a flag username. Em sistemas unix e similares (não sei dizer sobre windows), isto acontece por que o programa irá tentar usar seu usuário atual como username, e ele muito provavelmente não existe(pelo menos não existia no meu caso, nunca criei um). Porém, existe outra forma de autenticar. Usar o usuário postgres.
+Em sistemas gnu/linux e *bsd, e imagino que em MacOS também, o postgres cria um usuário próprio. Trocando para ele, podemos evitar a autenticação por comando.
+Para mudar para o usuário postgres, execute o seguinte comando em um terminal:
+#+BEGIN_SRC sh
+sudo -iu postgres
+#+END_SRC
+Depois de usar colocar sua senha, você irá logar como o usuário postgres naquele terminal. Para sair e voltar para seu próprio usuário, use "exit".
+*** Estilização
+A pouca estilização que o app possui, criei com Sass. Como os arquivos são compilados para css depois, não faz diferença prática, mas acho válido comentar.
+Se quiser saber mais sobre Sass, siga o link https://sass-lang.com/.
+A parte relevante é o comando que eu usei, que sinto a necessidade de compartilhar para quem usar sass/scss com node-sass e não souber.
+Normalmente, se compila um arquivo diretamente
+#+BEGIN_SRC sh
+sass ./arquivo.sass ./arquivo.css
+sass --watch ./arquivo.sass ./arquivo.css #Para pegar qualquer mudança no arquivo e compilar automaticamente
+#+END_SRC
+Mas é possível usar watch para uma pasta inteira
+#+BEGIN_SRC sh
+sass --watch ./pasta-sass:./pasta-css
+#+END_SRC
+É isso. Acho isso incrível e queria compartilhar.
