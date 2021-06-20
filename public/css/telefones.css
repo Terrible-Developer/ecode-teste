@@ -1,0 +1,41 @@
+body {
+  text-align: center;
+}
+
+#listaTelefones {
+  width: 100%;
+  margin-left: 5%;
+}
+#listaTelefones tr, #listaTelefones th {
+  border: 1px solid black;
+}
+#listaTelefones th:nth-child(even) {
+  background-color: gray;
+}
+#listaTelefones a {
+  text-decoration: none;
+  padding: 1px;
+  border: 1px solid black;
+  background-color: #bdbdbd;
+  color: black;
+}
+#listaTelefones a:nth-child(even) {
+  background-color: red;
+  color: white;
+}
+#listaTelefones input {
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+}
+#listaTelefones .botaoAcao {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 150px;
+}
+#listaTelefones .botaoAcao a, #listaTelefones .botaoAcao input {
+  margin-left: 20px;
+}
+
+/*# sourceMappingURL=telefones.css.map */

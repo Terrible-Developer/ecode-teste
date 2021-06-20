@@ -28,7 +28,8 @@ class TelefoneController extends Controller
     public function store(Request $request)
     {
         //
-        return Telefones::create($request->all());
+        Telefones::create($request->all());
+        return redirect('/cadastrosucesso');
     }
 
     /**
@@ -55,7 +56,7 @@ class TelefoneController extends Controller
         //
         $telefones = Telefones::find($id);
         $telefones->update($request->all());
-        return $telefones;
+        return redirect('/telefones');
     }
 
     /**
@@ -67,6 +68,7 @@ class TelefoneController extends Controller
     public function destroy($id)
     {
         //
-        return Telefones::destroy($id);
+        Telefones::destroy($id);
+        return redirect('/telefones');
     }
 }

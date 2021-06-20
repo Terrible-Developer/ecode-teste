@@ -26,7 +26,12 @@
                 <th>{{ $pessoa->rg }}</th>
                 <th><?php if($pessoa->genero == 0) echo "Masculino"; elseif($pessoa->genero == 1) echo "Feminino"; else echo "Não definido"; ?></th>
                 <th>{{ $pessoa->data_nascimento }}</th>
-                <th>{{ getTelefonePessoa($pessoa->id) }}</th>
+                <th><?php
+                    $telefones = getTelefonePessoa($pessoa->id);
+                    for($i = 0; $i < count($telefones); $i++){
+                        echo ' | ' . $telefones[$i]->numero_telefone . ' ';
+                    }
+                    ?></th>
                 <th>{{ date('d-m-Y', strtotime($pessoa->created_at)) }}</th>
                 <th>{{ date('d-m-Y', strtotime($pessoa->updated_at)) }}</th>
                 <th class="botaoAcao"><a href="/editarpessoa/{{$pessoa->id}}">Editar</a>

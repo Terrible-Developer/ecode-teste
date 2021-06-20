@@ -34,12 +34,26 @@ Route::get('/pessoasjuridicas', function(){
     return view('pessoasjuridicas', ['empresas' => $myArr]);
 });
 
+Route::get('/telefones', function(){
+    $telefones = json_decode(Telefones::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+    $pessoas = json_decode(Pessoa::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+    $pessoasjuridicas = json_decode(PessoaJuridica::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+
+    return view('telefones', [ 'telefones' => $telefones, 'pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas ]);
+});
+
 Route::get('/criarpessoa', function(){
     return view('criarpessoa');
 });
 
 Route::get('/criarpessoajuridica', function(){
     return view('criarpessoajuridica');
+});
+
+Route::get('/criartelefone', function(){
+    $pessoas = Pessoa::orderBy('id', 'asc')->get();
+    $pessoasjuridicas = PessoaJuridica::orderBy('id', 'asc')->get();
+    return view('criartelefone', ['pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas]);
 });
 
 Route::get('/cadastrosucesso', function(){
@@ -56,6 +70,15 @@ Route::get('/editarempresa/{id}', function($id){
     return view('editarempresa', ['empresa' => $empresa]);
 });
 
+Route::get('/editartelefone/{id}', function($id){
+    $telefone = getTelefone($id);
+    $pessoas = Pessoa::orderBy('id', 'asc')->get();
+    $pessoasjuridicas = PessoaJuridica::orderBy('id', 'asc')->get();
+    return view('editartelefone', [ 'telefone' => $telefone, 'pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas]);
+});
+
+/* Funções customizadas */
+
 function getPessoa($pessoaid){
     $pessoa = Pessoa::find($pessoaid);
     return $pessoa;
@@ -64,6 +87,11 @@ function getPessoa($pessoaid){
 function getEmpresa($empresaid){
     $empresa = PessoaJuridica::find($empresaid);
     return $empresa;
+}
+
+function getTelefone($id){
+    $telefone = Telefones::find($id);
+    return $telefone;
 }
 
 function getTelefonePessoa($pessoaid){
