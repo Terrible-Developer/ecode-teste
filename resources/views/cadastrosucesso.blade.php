@@ -3,7 +3,7 @@
     <head>
         <title>Sucesso</title>
     </head>
-    <body>
+    <body style="text-align: center">
         <h2>Cadastro efetuado com sucesso.</h2>
         <a href="/">Voltar</a>
     </body>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
 use App\Models\Pessoa;
+use App\Models\PessoaJuridica;
 use App\Models\Telefones;
 
 /*
@@ -22,19 +23,23 @@ Route::get('/', function () {
 });
 
 Route::get('/pessoas', function(){
-    $ctArr;
-
-    $ctArr = Pessoa::get()->toJson(JSON_PRETTY_PRINT);
-
     $myArr = json_decode(Pessoa::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
 
-    //pegarTelefonePessoa(1);
+    return view('pessoas', ['pessoas' => $myArr]);
+});
 
-    return view('pessoas', ['pessoas' => $myArr, 'pessoasCt' => $ctArr]);
+Route::get('/pessoasjuridicas', function(){
+    $myArr = json_decode(PessoaJuridica::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+
+    return view('pessoasjuridicas', ['empresas' => $myArr]);
 });
 
 Route::get('/criarpessoa', function(){
     return view('criarpessoa');
+});
+
+Route::get('/criarpessoajuridica', function(){
+    return view('criarpessoajuridica');
 });
 
 Route::get('/cadastrosucesso', function(){
@@ -42,9 +47,13 @@ Route::get('/cadastrosucesso', function(){
 });
 
 Route::get('/editarpessoa/{id}', function($id){
-    //echo 'console.log(' . $id . ')';
     $pessoa = getPessoa($id);
     return view('editarpessoa', ['pessoa' => $pessoa]);
+});
+
+Route::get('/editarempresa/{id}', function($id){
+    $empresa = getEmpresa($id);
+    return view('editarempresa', ['empresa' => $empresa]);
 });
 
 function getPessoa($pessoaid){
@@ -52,7 +61,12 @@ function getPessoa($pessoaid){
     return $pessoa;
 }
 
-function pegarTelefonePessoa($pessoaid){
-    $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->firstOrFail();
-        //echo $telefones;
+function getEmpresa($empresaid){
+    $empresa = PessoaJuridica::find($empresaid);
+    return $empresa;
+}
+
+function getTelefonePessoa($pessoaid){
+    $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->get();
+    return $telefones;
 }

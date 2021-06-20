@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pessoas</title>
+        <title>Pessoas Jurídicas</title>
         <link href="{{ URL::asset('css/users.css') }}" rel="stylesheet" >
     </head>
     <body>
-        <h2>Lista de Usuários</h2>
+        <h2>Lista de Pessoas Jurídicas cadastradas</h2>
         <table id="listaUsuarios">
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>RG</th>
-                <th>Gênero</th>
-                <th>Data de Nascimento</th>
+                <th>Razão Social</th>
+                <th>Nome Fantasia</th>
+                <th>CNPJ</th>
+                <th>Inscrição Estadual</th>
+                <th>Data de fundação</th>
                 <th>Data de cadastro</th>
                 <th>Última atualização</th>
             </tr>
-            @foreach($pessoas as $pessoa)
+            @foreach($empresas as $empresa)
             <tr>
-                <th>{{ $pessoa->id }}</th>
-                <th>{{ $pessoa->nome }}</th>
-                <th>{{ $pessoa->cpf }}</th>
-                <th>{{ $pessoa->rg }}</th>
-                <th><?php if($pessoa->genero == 0) echo "Masculino"; elseif($pessoa->genero == 1) echo "Feminino"; else echo "Não definido"; ?></th>
-                <th>{{ $pessoa->data_nascimento }}</th>
-                <th>{{ date('d-m-Y', strtotime($pessoa->created_at)) }}</th>
-                <th>{{ date('d-m-Y', strtotime($pessoa->updated_at)) }}</th>
-                <th class="botaoAcao"><a href="/editarpessoa/{{$pessoa->id}}">Editar</a>
-                    <form method="POST" action="/api/pessoa/{{$pessoa->id}}">
+                <th>{{ $empresa->id }}</th>
+                <th>{{ $empresa->razao_social }}</th>
+                <th>{{ $empresa->nome_fantasia }}</th>
+                <th>{{ $empresa->cnpj }}</th>
+                <th>{{ $empresa->inscricao_estadual }}</th>
+                <th> {{ $empresa->fundada_em }}</th>
+                <th>{{ date('d-m-Y', strtotime($empresa->created_at)) }}</th>
+                <th>{{ date('d-m-Y', strtotime($empresa->updated_at)) }}</th>
+                <th class="botaoAcao"><a href="/editarempresa/{{$empresa->id}}">Editar</a>
+                    <form method="POST" action="/api/pessoajuridicas/{{$empresa->id}}">
                         @method('DELETE')
                         <input type="submit" value="Deletar">
                     </form>
                 </th>
-                <!-- ><a href="/api/pessoa">Deletar</a></th>-->
             </tr>
             @endforeach
         </table>

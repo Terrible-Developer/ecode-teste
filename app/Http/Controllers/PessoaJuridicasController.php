@@ -28,7 +28,8 @@ class PessoaJuridicasController extends Controller
     public function store(Request $request)
     {
         //
-        return PessoaJuridica::create($request->all());
+        PessoaJuridica::create($request->all());
+        return redirect('/cadastrosucesso');
     }
 
     /**
@@ -55,7 +56,7 @@ class PessoaJuridicasController extends Controller
         //
         $pessoajuridica = PessoaJuridica::find($id);
         $pessoajuridica->update($request->all());
-        return $pessoajuridica;
+        return redirect('/pessoasjuridicas');
     }
 
     /**
@@ -67,6 +68,7 @@ class PessoaJuridicasController extends Controller
     public function destroy($id)
     {
         //
-        return PessoaJuridica::destroy($id);
+        PessoaJuridica::destroy($id);
+        return redirect('/pessoasjuridicas');
     }
 }
