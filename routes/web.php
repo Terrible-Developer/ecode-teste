@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pessoa;
 use App\Models\PessoaJuridica;
 use App\Models\Telefones;
+use App\Models\Enderecos;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,11 @@ Route::get('/', function () {
 Route::get('/pessoas', function(){
     $myArr = json_decode(Pessoa::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
 
-    return view('pessoas', ['pessoas' => $myArr]);
+    $nomeFiltro = '';
+
+    $listaFiltrada;
+
+    return view('pessoas', ['pessoas' => $myArr, 'nomeFiltro' => $nomeFiltro]);
 });
 
 Route::get('/pessoasjuridicas', function(){
@@ -42,6 +47,14 @@ Route::get('/telefones', function(){
     return view('telefones', [ 'telefones' => $telefones, 'pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas ]);
 });
 
+Route::get('/enderecos', function(){
+    $enderecos = json_decode(Enderecos::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+    $pessoas = json_decode(Pessoa::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+    $pessoasjuridicas = json_decode(PessoaJuridica::orderBy('id', 'asc')->get()->toJson(JSON_PRETTY_PRINT));
+
+    return view('enderecos', [ 'enderecos' => $enderecos, 'pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas ]);
+});
+
 Route::get('/criarpessoa', function(){
     return view('criarpessoa');
 });
@@ -54,6 +67,12 @@ Route::get('/criartelefone', function(){
     $pessoas = Pessoa::orderBy('id', 'asc')->get();
     $pessoasjuridicas = PessoaJuridica::orderBy('id', 'asc')->get();
     return view('criartelefone', ['pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas]);
+});
+
+Route::get('/criarendereco', function(){
+    $pessoas = Pessoa::orderBy('id', 'asc')->get();
+    $pessoasjuridicas = PessoaJuridica::orderBy('id', 'asc')->get();
+    return view('criarendereco', ['pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas]);
 });
 
 Route::get('/cadastrosucesso', function(){
@@ -77,6 +96,13 @@ Route::get('/editartelefone/{id}', function($id){
     return view('editartelefone', [ 'telefone' => $telefone, 'pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas]);
 });
 
+Route::get('/editarendereco/{id}', function($id){
+    $endereco = getEndereco($id);
+    $pessoas = Pessoa::orderBy('id', 'asc')->get();
+    $pessoasjuridicas = PessoaJuridica::orderBy('id', 'asc')->get();
+    return view('editarendereco', [ 'endereco' => $endereco, 'pessoas' => $pessoas, 'pessoasjuridicas' => $pessoasjuridicas]);
+});
+
 /* Funções customizadas */
 
 function getPessoa($pessoaid){
@@ -94,6 +120,11 @@ function getTelefone($id){
     return $telefone;
 }
 
+function getEndereco($id){
+    $endereco = Enderecos::find($id);
+    return $endereco;
+}
+
 function getTelefonePessoa($pessoaid){
     $telefones = Telefones::where('id_pessoa', '=', $pessoaid)->get();
     return $telefones;
@@ -102,4 +133,14 @@ function getTelefonePessoa($pessoaid){
 function getTelefoneEmpresa($empresaid){
     $telefones = Telefones::where('id_pessoa_juridica', '=', $empresaid)->get();
     return $telefones;
+}
+
+function getEnderecoPessoa($pessoaid){
+    $enderecos = Enderecos::where('id_pessoa', '=', $pessoaid)->get();
+    return $enderecos;
+}
+
+function getEnderecoEmpresa($empresaid){
+    $enderecos = Enderecos::where('id_pessoa_juridica', '=', $empresaid)->get();
+    return $enderecos;
 }

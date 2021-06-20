@@ -2,10 +2,11 @@
 <html>
     <head>
         <title>Novo Endereco</title>
+        <link rel="stylesheet" href="{{ asset('css/cadastroendereco.css') }}"></link>
     </head>
     <body>
         <h2>Cadastrar novo endereco</h2>
-        <form method="POST" action="/api/endereco">
+        <form method="POST" action="/api/endereco" id="listaEnderecos">
             <label for="id_pessoa">Pessoa</label>
             <select name="id_pessoa">
                 <option value="0">Nenhuma</option>

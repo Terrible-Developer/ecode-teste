@@ -1,0 +1,23 @@
+#+TITLE: Readme
+#+DESCRIPTION: Readme do projeto
+
+* Projeto
+** Descrição
+Este projeto foi feito como um teste para a ecode agência digital. Consiste de um cadastro de pessoas (físicas e jurídicas), a edição de seus dados (e adição e edição individual de telefones e endereços especificamente), e deleção.
+
+** Falhas
+Já tirando a parte difícil do caminho, seguem os objetivos ou funcionalidades que não foram concluídos:
+*** Validação de campos
+Todos os campos de entrada não possuem nenhuma validação. Seja calcular o CPF, checar se o rg já está cadastrado, e qualquer outra validação mundana e padrão.
+*** Cadastro de telefone e endereço
+Estes cadastros funcionam, não é este o problema. O problema é que eles não cadastram junto à pessoa, mas separadamente.
+*** Pesquisa/Relatório
+Este foi uma falha feia, mas pelas explicações que vão seguir, não foi possível.
+*** Autenticação
+O pior de todos. Perdi tanto tempo com os outros que não consegui que mal sobrou tempo pra tentar fazer a autenticação.
+
+
+Pela minha inexperiência com PHP e Laravel, não consegui resolver alguns detalhes até irritantes neste tempo curto.
+
+** Como configurar
+*barulho de tiro*

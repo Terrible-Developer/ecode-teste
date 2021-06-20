@@ -2,10 +2,11 @@
 <html>
     <head>
         <title>Novo Telefone</title>
+        <link rel="stylesheet" href="{{ asset('css/cadastrotelefone.css') }}">
     </head>
     <body>
         <h2>Cadastrar novo telefone</h2>
-        <form method="POST" action="/api/telefone">
+        <form id="listaTelefones" method="POST" action="/api/telefone">
             <label for="id_pessoa">Pessoa</label>
             <select name="id_pessoa">
                 <option value="0">Nenhuma</option>
