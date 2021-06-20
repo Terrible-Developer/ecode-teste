@@ -1,0 +1,30 @@
+body
+  text-align: center
+
+#listaEnderecos
+  width: 100%
+  margin-left: 5%
+  tr, th
+    border: 1px solid black
+  th:nth-child(even)
+    background-color: gray
+  a
+    text-decoration: none
+    padding: 1px
+    border: 1px solid black
+    background-color: #bdbdbd
+    color: black
+    &:nth-child(even)
+      background-color: red
+      color: white
+  input
+    background-color: red
+    color: white
+    border: 1px solid black
+  .botaoAcao
+    display: flex
+    flex-direction: row
+    justify-content: center
+    width: 150px
+    a, input
+      margin-left: 20px

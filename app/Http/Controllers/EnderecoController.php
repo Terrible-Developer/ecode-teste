@@ -28,7 +28,8 @@ class EnderecoController extends Controller
     public function store(Request $request)
     {
         //
-        return Enderecos::create($request->all());
+        Enderecos::create($request->all());
+        return redirect('/cadastrosucesso');
     }
 
     /**
@@ -55,7 +56,7 @@ class EnderecoController extends Controller
         //
         $endereco = Enderecos::find($id);
         $endereco->update($request->all());
-        return $endereco;
+        return redirect('/enderecos');
     }
 
     /**
@@ -67,6 +68,7 @@ class EnderecoController extends Controller
     public function destroy($id)
     {
         //
-        return Enderecos::destroy($id);
+        Enderecos::destroy($id);
+        return redirect('/enderecos');
     }
 }

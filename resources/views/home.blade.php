@@ -14,16 +14,19 @@
                 <a href="/criarpessoajuridica">Cadastro de pessoa jurídica</a>
                 <br />
                 <a href="/criartelefone">Cadastrar novo telefone</a>
-                <p>Cadastrar novo endereço</p>
+                <br />
+                <a href="/criarendereco">Cadastrar novo Endereco</a>
             </div>
             <div class="opcoesAdmin">
                 <h2>Para admins</h2>
                 <p>Fazer login (desabilitado)</p>
-                <a href="/pessoas">Lista de pessoas DEV</a>
+                <a href="/pessoas">Lista de pessoas</a>
                 <br />
-                <a href="/pessoasjuridicas">Lista de pessoas jurídicas DEV</a>
+                <a href="/pessoasjuridicas">Lista de pessoas jurídicas</a>
                 <br />
-                <a href="/telefones">Lista de telefones DEV</a>
+                <a href="/telefones">Lista de telefones</a>
+                <br />
+                <a href="/enderecos">Lista de endereços</a>
             </div>
         </div>
     </body>
