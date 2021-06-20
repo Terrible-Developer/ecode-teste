@@ -15,7 +15,7 @@ Estes cadastros funcionam, não é este o problema. O problema é que eles não 
 *** Pesquisa/Relatório
 Este foi uma falha feia. Tenho código comentado no arquivo de listar pessoas onde estava tentando formar um filtro, e depois percebi que não era exatamente o objetivo.
 *** Autenticação
-O pior de todos. Perdi tanto tempo com os outros que não consegui que mal sobrou tempo pra tentar fazer a autenticação.
+O pior de todos. Perdi tanto tempo com os outros que mal sobrou tempo pra tentar fazer a autenticação.
 Até tentei começar instalando jwt-auth e procurando documentação e tutoriais, mas simplesmente não dei conta
 
 
