@@ -32,6 +32,7 @@ git clone https://github.com/Terrible-Developer/ecode-teste.git
 #+END_SRC
 Execute o projeto com artisan para testar que tudo está funcionando:
 #+BEGIN_SRC sh
+cd ecode-teste
 php artisan serve
 #+END_SRC
 Caso tudo esteja certo, deve aparecer uma mensagem como a seguinte
